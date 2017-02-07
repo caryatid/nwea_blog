@@ -4,7 +4,7 @@ import sqlite3
 
 
 INSERT_POST_SQL='''
-INSERT INTO posts (title, body) VALUES (?,?)
+INSERT INTO posts (post_id, title, body) VALUES (?,?,?)
 '''.strip()
 
 
@@ -13,10 +13,19 @@ SELECT post_id, title, body FROM posts;
 '''.strip()
 
 
+# I think the schema should be changed to have post_id disallow NULL.
+# inserts do not increment w/o explicit post_id set.
+# I suspect making the primary key an explicit INTEGER fixes
+MAX_ID_SQL='''
+SELECT MAX(post_id) from posts;
+'''.strip()
+
+
 def post(environ, c):
     reader = codecs.getreader('utf-8')
     p_data = json.load(reader(environ['wsgi.input']))
-    c.execute(INSERT_POST_SQL, (p_data['title'], p_data['body']))
+    i = c.execute(MAX_ID_SQL).fetchone()[0] or 0
+    c.execute(INSERT_POST_SQL, (i + 1, p_data['title'], p_data['body']))
     return json.dumps({'body': 'Inserted blog post: {}'.format(p_data['title'])})
 
 
@@ -33,9 +42,9 @@ def route(environ, endpoint):
     cmd = endpoint[0]
     with sqlite3.connect('blog.db') as conn:
         if cmd == 'post':
-            response = post(environ, conn)
+            response = post(environ, conn.cursor())
         elif cmd == 'posts':
-            response = posts(conn)
+            response = posts(conn.cursor())
         else:
             status = '404 Not found'
             response = json.dumps({'body': 'Nothing here, friends'})

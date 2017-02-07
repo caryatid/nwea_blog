@@ -1,9 +1,10 @@
 SHELL := /bin/sh
-PYTHON :=python # must be python 3.x
+PYTHON := python # must be python 3.x
 PY_FILES = $(shell git ls-files | grep '.py$$')
 
 clean:
 	@ test -d .virt && rm -Rf .virt
+	@ cp blog_empty.db blog.db
 
 bootstrap: clean
 	@ virtualenv --python=$(PYTHON) .virt && \
