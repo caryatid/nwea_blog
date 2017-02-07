@@ -19,6 +19,7 @@
 
 ## Use and Testing
 new posts can be created with a json payload via:
+
     ```
     echo '{"title": "grue", "body": "the magnificent"}' >post.json
     curl -H "Accept: application/json" -H "Content-Type: application/json" \ 
@@ -26,13 +27,13 @@ new posts can be created with a json payload via:
     ```    
 
 all posts can be retreived via
+
     ```
     curl -H "Accept: application/json" http://<host>:9001/posts 
     ```
 
 The Makefile has handy endpoints for ensuring good style and that
-the API works as intended.
-`make style` will set-up environment and run tests
+the API works as intended. `make style` will set-up environment and run tests
 
 ## Deploy
 Not entirely certain how you would like deploy handled for this as
