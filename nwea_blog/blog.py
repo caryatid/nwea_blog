@@ -3,12 +3,12 @@ import json
 import sqlite3
 
 
-INSERT_POST_SQL='''
+INSERT_POST_SQL = '''
 INSERT INTO posts (post_id, title, body) VALUES (?,?,?)
 '''.strip()
 
 
-LIST_POSTS_SQL='''
+LIST_POSTS_SQL = '''
 SELECT post_id, title, body FROM posts;
 '''.strip()
 
@@ -16,7 +16,7 @@ SELECT post_id, title, body FROM posts;
 # I think the schema should be changed to have post_id disallow NULL.
 # inserts do not increment w/o explicit post_id set.
 # I suspect making the primary key an explicit INTEGER fixes
-MAX_ID_SQL='''
+MAX_ID_SQL = '''
 SELECT MAX(post_id) from posts;
 '''.strip()
 
@@ -26,7 +26,8 @@ def post(environ, c):
     p_data = json.load(reader(environ['wsgi.input']))
     i = c.execute(MAX_ID_SQL).fetchone()[0] or 0
     c.execute(INSERT_POST_SQL, (i + 1, p_data['title'], p_data['body']))
-    return json.dumps({'body': 'Inserted blog post: {}'.format(p_data['title'])})
+    return json.dumps({'body':
+                       'Inserted blog post: {}'.format(p_data['title'])})
 
 
 def posts(c):
