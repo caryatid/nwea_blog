@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # prolly ought to randomize port for simultaneous runs
-uwsgi --http :9001 --wsgi-file nwea_blog/blog.py 2>&1 >/dev/null &
+uwsgi --http :9001 --wsgi-file nwea_blog/blog.py >/dev/null 2>&1 &
 WSGI_PID=$!
 TMP=$(mktemp -d)
 
