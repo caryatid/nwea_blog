@@ -16,6 +16,7 @@
     - post_id : integer ( primary key )
     - title   : string
     - body    : string
+
 ## Use and Testing
 new posts can be created with a json payload via:
     ```
@@ -40,6 +41,7 @@ will pull uwsgi into the virtualenv and the application
 can be easily started and listening on port 9001 with the script,
 "run_server.sh". Deploy specifics would be wildly variant depending 
 on environement specifics such as:
+
 - process supervisor on system
     - systemd
     - supervisorctl
@@ -49,10 +51,10 @@ on environement specifics such as:
     - nginx 
     - uwsgi
 
-    If you'd like me to provide a config for one of the web servers and/or a 
-    a service start script for one of the process supervisor above I would be 
-    more than happy to do so.
-    
-    Additionally, I did organize the files to easily make into a pip package
-    if you'd like to see that as well. However, finalizing the pip package
-    would be dependent-ish on choosing the process supervisor first. 
+If you'd like me to provide a config for one of the web servers and/or a 
+a service start script for one of the process supervisor above I would be 
+more than happy to do so.
+
+Additionally, I did organize the files to easily make into a pip package
+if you'd like to see that as well. However, finalizing the pip package
+would be dependent-ish on choosing the process supervisor first. 
