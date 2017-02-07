@@ -19,20 +19,23 @@ EOF
 cat <<EOF >$TMP/json.3
 {"title": "nwea",
  "body": "This is an example program
-showing a simple api for POST/GET of blog posts. It may be interesting
-to add a PUT endpoint. Meaning an idempotent push of data, perhaps matching
-on 'title'"}
+ showing a simple api for POST/GET of blog posts. It may be interesting
+ to add a PUT endpoint. Meaning an idempotent push of data, perhaps matching
+ on 'title'"}
 EOF
 
 echo posting
+echo -------
 for f in $(ls $TMP/json*)
 do
     curl -H 'Content-Type: application/json' -X POST -d "@$f" http://localhost:9001/post
+    echo
 done
-
 echo getting posts
+echo -------------
 curl -H 'Accept: application:json' http://localhost:9001/posts
  
 kill $WSGI_PID
+echo
 
 wait
