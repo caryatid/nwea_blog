@@ -8,7 +8,7 @@ clean:
 
 bootstrap: clean
 	@ virtualenv --python=$(PYTHON) .virt && \
-    source .virt/bin/activate && \
+	source .virt/bin/activate && \
 	pip install uwsgi && \
 	pip install flake8
 
