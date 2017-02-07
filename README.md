@@ -20,17 +20,13 @@
 ## Use and Testing
 new posts can be created with a json payload via:
 
-    ```
     echo '{"title": "grue", "body": "the magnificent"}' >post.json
     curl -H "Accept: application/json" -H "Content-Type: application/json" \ 
       -X POST -d @post.json http://<host>:9001/post
-    ```    
 
 all posts can be retreived via
 
-    ```
     curl -H "Accept: application/json" http://<host>:9001/posts 
-    ```
 
 The Makefile has handy endpoints for ensuring good style and that
 the API works as intended. `make style` will set-up environment and run tests
